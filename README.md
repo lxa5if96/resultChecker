@@ -1,24 +1,16 @@
 # 📊 ResultChecker
 
-A lightweight Flask-based web application for checking and displaying student results through a simple and responsive interface.
+A lightweight Flask-based web application for checking and displaying student results.
 
 ---
 
-## 🚀 Overview
-
-ResultChecker is a minimal web system that allows users to search and view student results using a symbol number or ID. It is built using Flask and designed with a simple frontend using HTML and CSS.
-
-This project is structured in a way that can be easily extended into a database-driven result management system.
-
----
-
-## ✨ Features
+## 🚀 Features
 
 - Search student results by ID / symbol number
-- Simple and clean UI
+- Simple and clean user interface
 - Separate result display page
-- Lightweight Flask backend
-- Easy to extend for database integration
+- Built with Flask for backend logic
+- Easy to extend with database integration
 
 ---
 
@@ -38,9 +30,7 @@ resultChecker/
 ├── app.py
 ├── static/
 │ └── style.css
-│
 ├── templates/
 │ ├── index.html
 │ └── result.html
-│
 └── pycache/
