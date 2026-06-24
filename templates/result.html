@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NEB Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>National Examination Board</h1>
+
+    <div class="student-info">
+        <p><strong>Name: </strong>{{ name }}</p>
+
+        <p>
+            <strong>Symbol:</strong> {{ symbol }}
+            &nbsp;&nbsp;&nbsp;
+            <strong>Registration No:</strong> {{ registration }}
+        </p>
+
+        <p>
+            <strong>School Name:</strong>
+            {{ school }}
+        </p>
+
+        <h3>GRADE SHEET</h3>
+    </div>
+
+<div class="mark"><table>
+        <thead>
+            <tr>
+                <th>CODE</th>
+                <th>SUBJECT</th>
+                <th>CREDIT HOUR</th>
+                <th>GRADE</th>
+                <th>REMARKS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for subject in subjects %}
+            <tr>
+                <td>{{ subject.code }}</td>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.credit }}</td>
+                <td>{{ subject.grade }}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+    <div class="gpa">
+        GPA : {{ gpa }}
+    </div>
+
+    <div class="note">
+        <strong>Note:</strong> One Credit Hour equals 32 Clock Hours
+        <br><br>
+
+        TH : THEORY<br>
+        PR : PRACTICAL<br>
+        Abs : ABSENT<br>
+        W : WITHHELD
+
+        <hr>
+
+        This Sheet is for general idea of grade(s) secured.
+        This is not for official use.If any mistakes appear; record at NEB ledger will be referred.
+    </div>
+
+    <button class="print-btn" onclick="window.print()">
+        Print Gradesheet
+    </button>
+
+</div>
+
+</body>
+</html>

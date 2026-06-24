@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NEB Result Checker</title>
+
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #121426;
+        }
+
+        .box{
+            width: 350px;
+            padding: 30px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input{
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        button{
+            width: 96%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #046ac3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background: #0359a3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Check Result</h2>
+
+        <form action="/result" method="POST">
+
+            <input
+                type="text"
+                name="symbol"
+                placeholder="Symbol Number"
+                required>
+
+            <br>
+
+            <input
+                type="text"
+                name="dob"
+                placeholder="DOB (2063/11/15)"
+                required>
+
+            <br>
+
+            <button type="submit">
+                Get Result
+            </button>
+
+        </form>
+    </div>
+
+</body>
+</html>
