@@ -23,14 +23,16 @@ A lightweight Flask-based web application for checking and displaying student re
 - Jinja2 Templates
 
 ---
-
 ## 📁 Project Structure
+
+```
 resultChecker/
 │
 ├── app.py
 ├── static/
-│ └── style.css
+│   └── style.css
 ├── templates/
-│ ├── index.html
-│ └── result.html
-└── pycache/
+│   ├── index.html
+│   └── result.html
+└── __pycache__/
+```
