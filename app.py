@@ -21,10 +21,14 @@ def result():
         "submit": "Submit"
     }
 
-    response = requests.post(
+    try:
+        response = requests.post(
         "https://neb.ntc.net.np/results.php",
-        data=payload
+        data=payload,
+        timeout=15
     )
+    except requests.exceptions.RequestException:
+        return "NEB server is unavailable. Please try again later."
 
     html = response.text
 
