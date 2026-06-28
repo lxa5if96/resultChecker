@@ -1,18 +1,27 @@
 from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
-
+from datetime import datetime
 app = Flask(__name__)
+def get_nepali_year():
+    now = datetime.now()
+    gregorian_year = now.year
+    gregorian_month = now.month
+    gregorian_day = now.day
+    if gregorian_month < 4 or (gregorian_month == 4 and gregorian_day < 14):
+        return gregorian_year + 56
+    else:
+        return gregorian_year + 57
 
 @app.route("/")
 def home():
-    return render_template("index.html")
-
+    nepali_year = get_nepali_year()
+    return render_template("index.html",year = nepali_year)
 
 @app.route("/result", methods=["POST"])
 def result():
 
-    symbol = request.form.get("symbol")
+    symbol = request.form.get("symbol_number")
     dob = request.form.get("dob")
 
     payload = {
@@ -21,12 +30,21 @@ def result():
         "submit": "Submit"
     }
 
-    response = requests.post(
+    try:
+        response = requests.post(
         "https://neb.ntc.net.np/results.php",
-        data=payload
+        data=payload,
+        timeout=15
     )
+    except requests.exceptions.RequestException:
+        return "NEB server is unavailable. Please try again later."
 
     html = response.text
+    print("FORM:", request.form)
+    print("SYMBOL:", symbol)
+    print("DOB:", dob)
+    print("STATUS:", response.status_code)
+    print(html[:1000])
 
     import re
 
@@ -52,13 +70,17 @@ def result():
         html
     )
 
-    if not all([name, symbol_match, school, gpa]):
-        return "Result not found or invalid symbol/DOB"
-
     registration = re.search(
         r"<b>Registration No</b>\s*:\s*(\d+)",
         html
     )
+
+    if not all([name, symbol_match, school, gpa]):
+        print("NAME:", name)
+        print("SYMBOL_MATCH:", symbol_match)
+        print("SCHOOL:", school)
+        print("GPA:", gpa)
+        return "Result not found or invalid symbol/DOB"
 
     student_name = name.group(1).strip()
     student_symbol = symbol_match.group(1)
@@ -90,7 +112,7 @@ def result():
             credit = cols[2].get_text(strip=True)
             grade = cols[3].get_text(strip=True)
 
-            # Skip GPA row and invalid rows
+
             if code.isdigit():
 
                 subjects.append({
@@ -108,10 +130,7 @@ def result():
     school=student_school,
     gpa=student_gpa,
     subjects=subjects
-)
-
-    if not all([name, symbol_match, school, gpa]):
-        return "Result not found or invalid symbol/DOB"
+)  
 
 if __name__ == "__main__":
     app.run(debug=True)

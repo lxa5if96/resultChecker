@@ -1,80 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>NEB Result Checker</title>
-
-    <style>
-        body{
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background: #121426;
-        }
-
-        .box{
-            width: 350px;
-            padding: 30px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        input{
-            width: 90%;
-            padding: 10px;
-            margin: 8px 0;
-        }
-
-        button{
-            width: 96%;
-            padding: 10px;
-            margin-top: 10px;
-            background: #046ac3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover{
-            background: #0359a3;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Examination Board - Class XII Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
 </head>
-
 <body>
 
-    <div class="box">
-        <h2>Check Result</h2>
+    <div class="container">
 
-        <form action="/result" method="POST">
+        <div class="header">
+            <h2>National Examination Board</h2>
+            <h1>Class XII : Results {{ year }}</h1>
+        </div>
 
-            <input
-                type="text"
-                name="symbol"
-                placeholder="Symbol Number"
-                required>
+        <div class="nav-buttons">
+            <a href="{{ url_for('home') }}">
+                <button class="btn-blue">Main Page</button>
+            </a>
+        </div>
 
-            <br>
 
-            <input
-                type="text"
-                name="dob"
-                placeholder="DOB (2063/11/15)"
-                required>
+        <div class="form-container">
 
-            <br>
+            <div class="badge">XII Result :: {{ year }}</div>
 
-            <button type="submit">
-                Get Result
-            </button>
+            <form action="/result" method="POST">
+               
+                <div class="form-group">
+                    <div class="form-label">Symbol Number</div>
+                    <div class="form-separator">:</div>
+                    <div class="form-input-container">
+                        <input type="text" name="symbol_number" id="symbol_number">
+                        <span class="form-hint">Eg : 12013825</span>
+                    </div>
+                </div>
 
-        </form>
+          
+                <div class="form-group">
+                    <div class="form-label">Date of Birth</div>
+                    <div class="form-separator">:</div>
+                    <div class="form-input-container">
+                        <input type="text" name="dob" id="dob">
+                        <span class="form-hint">Date Format : YYYY/MM/DD </span>
+                    </div>
+                </div>
+
+           
+                <div class="submit-container">
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </body>
